@@ -29,7 +29,7 @@ public class LoginPage extends PageBase {
     private WebElement warningMessage;
 
     public LoginPage(){
-        PageFactory.initElements(Driver.getDriver(ConfigurationReader.getProperty("browser")),this);
+        PageFactory.initElements(Driver.getDriver(),this);
     }
 
     public String getWarningMessage(){
@@ -47,7 +47,5 @@ public class LoginPage extends PageBase {
         password.sendKeys(passwordValue, Keys.ENTER);
         BrowserUtils.waitForPageToLoad(10);
     }
-    public void goToLogin(){
-        Driver.getDriver(ConfigurationReader.getProperty("URL"));
-    }
+
 }

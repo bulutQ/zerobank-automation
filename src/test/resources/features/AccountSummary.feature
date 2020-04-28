@@ -1,4 +1,4 @@
-@summary
+@AccountSummary
 Feature: Account summary page
 
   Background:
@@ -6,12 +6,12 @@ Feature: Account summary page
     When User logs in with username "username" and password "password"
     Then Page title "Account Summary" should be displayed
 
-  @step1
+  @Title
   Scenario:Account summary page should have title "Zero-Account Summary"
     When user navigates to Account summary page
     Then page title should be Zero-Account summary
 
-  @step2
+  @AccountTypes
   Scenario: Account summary page should have all account types
     When user navigates to Account summary page
     Then user verifies that account types are displayed
@@ -20,7 +20,7 @@ Feature: Account summary page
       |Credit Accounts    |
       |Loan Accounts      |
 
-  @step3
+  @CreditAccount
   Scenario: Credit account table should have all columns
     When user navigates to Account summary page
     Then user verifies that columns are displayed in Credit Accounts table

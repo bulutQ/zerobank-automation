@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class PageBase {
 
-    protected WebDriver driver= Driver.getDriver(ConfigurationReader.getProperty("browser"));
+    protected WebDriver driver= Driver.getDriver();
     protected WebDriverWait wait= new WebDriverWait(driver,25);
 
     public PageBase()

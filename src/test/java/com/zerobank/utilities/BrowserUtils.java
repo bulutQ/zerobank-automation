@@ -17,10 +17,10 @@ import java.util.function.Function;
 public class BrowserUtils {
 
     public static void switchWindow(String title){
-        Set<String> windowHandles = Driver.getDriver(ConfigurationReader.getProperty("browser")).getWindowHandles();
+        Set<String> windowHandles = Driver.getDriver().getWindowHandles();
         for(String window : windowHandles){
-            Driver.getDriver(ConfigurationReader.getProperty("browser")).switchTo().window(window);
-            if(Driver.getDriver(ConfigurationReader.getProperty("browser")).getTitle().equals(title)){
+            Driver.getDriver().switchTo().window(window);
+            if(Driver.getDriver().getTitle().equals(title)){
                 break;
             }
         }
@@ -38,7 +38,7 @@ public class BrowserUtils {
 
         System.out.println("OS name: " + System.getProperty("os.name"));
         System.out.println("Screenshot is here: " + path);
-        TakesScreenshot takesScreenshot = (TakesScreenshot) Driver.getDriver(ConfigurationReader.getProperty("browser"));
+        TakesScreenshot takesScreenshot = (TakesScreenshot) Driver.getDriver();
         File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
         File destination = new File(path);
         try {
@@ -50,7 +50,7 @@ public class BrowserUtils {
     }
 
     public static void scrollTo(WebElement element) {
-        ((JavascriptExecutor) Driver.getDriver(ConfigurationReader.getProperty("browser"))).executeScript("arguments[0].scrollIntoView(true);", element);
+        ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public static List<String> getTextFromWebElements(List<WebElement> elements) {
@@ -64,27 +64,27 @@ public class BrowserUtils {
     }
 
     public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(ConfigurationReader.getProperty("browser")), timeToWaitInSec);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeToWaitInSec);
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public static WebElement waitForVisibility(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(ConfigurationReader.getProperty("browser")), timeout);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public static WebElement waitForClickablility(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(ConfigurationReader.getProperty("browser")), timeout);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public static WebElement waitForClickablility(By locator, int timeout) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(ConfigurationReader.getProperty("browser")), timeout);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver(ConfigurationReader.getProperty("browser")))
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
                 .withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         WebElement element = wait.until(new Function<WebDriver, WebElement>() {
@@ -103,7 +103,7 @@ public class BrowserUtils {
         };
         try {
             System.out.println("Waiting for page to load...");
-            WebDriverWait wait = new WebDriverWait(Driver.getDriver(ConfigurationReader.getProperty("browser")), timeOutInSeconds);
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeOutInSeconds);
             wait.until(expectation);
         } catch (Throwable error) {
             System.out.println(
