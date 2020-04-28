@@ -3,9 +3,9 @@ package com.zerobank.pages;
 import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.ConfigurationReader;
 import com.zerobank.utilities.Driver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends PageBase {
@@ -19,7 +19,7 @@ public class LoginPage extends PageBase {
     @FindBy(id = "user_remember_me")
     private WebElement rememberMe;
 
-    @FindBy(className = "btn btn-primary")
+    @FindBy(name = "submit")
     private WebElement submit;
 
     @FindBy(linkText = "Forgot your password ?")
@@ -36,13 +36,18 @@ public class LoginPage extends PageBase {
         return warningMessage.getText();
     }
 
-    public void login(boolean ifRemember){
+    public void login(){
         userName.sendKeys(ConfigurationReader.getProperty("userName_default"));
         password.sendKeys(ConfigurationReader.getProperty("password"));
-        if (ifRemember){
-            rememberMe.click();
-        }
         BrowserUtils.waitForPageToLoad(3);
         submit.click();
+    }
+    public void login(String usernameValue, String passwordValue) {
+        userName.sendKeys(usernameValue);
+        password.sendKeys(passwordValue, Keys.ENTER);
+        BrowserUtils.waitForPageToLoad(10);
+    }
+    public void goToLogin(){
+        Driver.getDriver(ConfigurationReader.getProperty("URL"));
     }
 }

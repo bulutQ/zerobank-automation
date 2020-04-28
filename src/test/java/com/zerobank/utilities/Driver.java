@@ -20,6 +20,37 @@ public class Driver {
 
     private static ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
+    private Driver() {
+
+    }
+    public synchronized static WebDriver getDriver() {
+        if (driverPool.get() == null) {
+            String browser = ConfigurationReader.getProperty("browser").toLowerCase();
+            switch (browser) {
+                case "chrome":
+                    WebDriverManager.chromedriver().setup();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--start-maximized");
+                    driverPool.set(new ChromeDriver(chromeOptions));
+                    break;
+                case "chromeheadless":
+                    //to run chrome without interface (headless mode)
+                    WebDriverManager.chromedriver().setup();
+                    ChromeOptions options = new ChromeOptions();
+                    options.setHeadless(true);
+                    driverPool.set(new ChromeDriver(options));
+                    break;
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    driverPool.set(new FirefoxDriver());
+                    break;
+                default:
+                    throw new RuntimeException("Wrong browser name!");
+            }
+        }
+        return driverPool.get();
+    }
+
     public synchronized static WebDriver getDriver(String browser) {
         if (driverPool.get() == null) {
             switch (browser) {
