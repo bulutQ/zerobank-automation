@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class AccountSummaryStepDefinition {
@@ -29,7 +29,6 @@ public class AccountSummaryStepDefinition {
 
     @Then("user verifies that account types are displayed")
     public void user_verifies_that_account_types_are_displayed(List<String> accountTypes) {
-        accountTypes=new ArrayList<>();
         for (WebElement accountType:accountSummaryPage.account_Types){
             accountTypes.add(accountType.getText());
         }
@@ -38,7 +37,6 @@ public class AccountSummaryStepDefinition {
 
     @Then("user verifies that columns are displayed in Credit Accounts table")
     public void user_verifies_that_columns_are_displayed_in_Credit_Accounts_table(List<String> accountColumns) {
-        accountColumns=new ArrayList<>();
         for (WebElement accountColumn: accountSummaryPage.account_Column) {
             accountColumns.add(accountColumn.getText());
         }

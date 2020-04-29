@@ -16,7 +16,7 @@ public class LoginStepDefinition {
     @Given("the user is on the login page")
     public void the_user_is_on_the_login_page() {
         String URL=ConfigurationReader.getProperty("URL");
-        Driver.getDriver(ConfigurationReader.getProperty("browser")).get(URL);
+        Driver.getDriver().get(URL);
     }
 
     @When("User logs in with username {string} and password {string}")
@@ -26,7 +26,8 @@ public class LoginStepDefinition {
 
     @Then("Page title {string} should be displayed")
     public void page_title_should_be_displayed(String string) {
-        Assert.assertEquals("Zero - Account Summary", Driver.getDriver(ConfigurationReader.getProperty("browser")).getTitle());
+        String expectedTitle= Driver.getDriver().getTitle();
+        Assert.assertEquals(expectedTitle, "Zero - Account Summary");
     }
 
     @Then("error message {string} is displayed")
